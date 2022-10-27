@@ -1,0 +1,59 @@
+ifconfig
+vi /etc/hsots
+192.168.1.14      orcl.net     orcl
+cd /etc/selinux
+vi config
+#set	SELINUX=disabled
+service firewalld stop
+systemctl disable firewalld
+cd /etc/yum.repos.d/
+remove all.repo files
+wget http://yum.oracle.com/public-yum-ol7.repo
+vi public-yum-ol7.repo
+go down to ol7_u5_base & addons
+#change enabled from 0 to 1
+yum install oracle-database-server-12cR2-preinstall -y
+yum update -y	#running
+mkdir -p /home/app/oracle/product/12.2.2/db1/
+chown -R oracle:oinstall /home/app
+chmod -R 775 /home/app
+password oracle
+userdel -r amit
+su - oracle
+vi .bash_profile
+===========
+export TMP=/tmp
+export TMPDIR=$TMP
+export export ORACLE_HOSTNAME=orcl.net
+export ORACLE_UNQNAME=ORCL
+export ORACLE_BASE=/home/app/oracle
+export ORACLE_HOME=$ORACLE_BASE/product/12.2.0.1/db1
+export ORACLE_SID=ORCL
+
+export PATH=/usr/sbin:$PATH
+export PATH=$ORACLE_HOME/bin:$PATH
+
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib
+export CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib
+
+export PS1="[\u@\h \W]\$ "
+==============
+
+install xming
+putty
+
+
+login to oracle
+cd /home/oracle/soft/database
+./runInstaller
+
+./dbca
+
+netca
+
+
+
+
+
+
+
